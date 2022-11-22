@@ -1,0 +1,39 @@
+{
+  "name": "calcfront",
+  "version": "1.0.0",
+  "description": "React.js Calculator front end that calls node API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericbowser/CalcFront.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericbowser/CalcFront/issues"
+  },
+  "homepage": "https://github.com/ericbowser/CalcFront#readme",
+  "dependencies": {
+    "create-react-app": "^1.2.1",
+    "react-bootstrap": "^2.6.0",
+    "react-scripts": "^5.0.1",
+    "styled-components": "^5.3.6"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
