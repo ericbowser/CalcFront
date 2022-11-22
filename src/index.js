@@ -11,13 +11,19 @@ import Login from './Components/Login';
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/Login",
         element: (
             <Login>
                 <h1>Hello World</h1>
                 <Link to="about">About Us</Link>
             </Login>
-        ),
+        )
+    },
+    {
+        path: "/",
+        element: (
+            <div>Home page</div>        
+        )
     },
     {
         path: "about",
@@ -27,10 +33,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.Fragment>
-        <RouterProvider router={router} />
-        <React.StrictMode>
-            <App/>
-        </React.StrictMode>
+        <RouterProvider router={router}>
+            <React.StrictMode>
+                <App/>
+            </React.StrictMode>
+        </RouterProvider>
     </React.Fragment>
 );
 
