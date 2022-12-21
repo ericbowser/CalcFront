@@ -1,6 +1,7 @@
 ﻿import React, {useState, useEffect} from 'react';
 import { Form, Container, Button } from 'react-bootstrap';
 import styled from 'styled-components';
+import {post} from '../Api/loginApi';
 // import {isEmpty} from 'lodash'
 
 const StyledContainer = styled(Container)`
@@ -16,10 +17,16 @@ function Login () {
   useEffect(() => {
   }, [password, userName]);
   
-  const handleSubmit = (event) => {
+  async function handleSubmit() {
     try {
       console.log('username', userName);
       console.log('password', password);
+      const data = {
+          username: userName,
+          password: password
+      };
+      const response = await post('http://localhost:34349/login', data);
+      console.log(response);
     } catch (e) {
       console.log(e.target.value);
       // handle your error state here
@@ -42,7 +49,7 @@ function Login () {
                   }}/>
               </Form.Group>
               <Form.Group>
-                  <div style={{'padding-bottom': '30px'}}>
+                  <div style={{'paddingBottom': '30px'}}>
                       <Button variant='primary' type='submit' style={{'float': 'right'}}>
                           Submit
                       </Button>
