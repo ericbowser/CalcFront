@@ -5,9 +5,9 @@ import {post} from '../Api/loginApi';
 // import {isEmpty} from 'lodash'
 
 const StyledContainer = styled(Container)`
-    background-color: black;
-    margin-top: 25px;
-    padding: 20px;
+    background-color: red;
+    margin-top: 2%;
+    padding: 2%;
 `;
 
 function Login () {
@@ -25,8 +25,10 @@ function Login () {
           username: userName,
           password: password
       };
-      const response = await post('http://localhost:34349/login', data);
-      console.log(response);
+      console.log(data);
+      const x = await post('http://localhost:34349/login', data);
+      console.log(x);
+      // console.log(response);
     } catch (e) {
       console.log(e.target.value);
       // handle your error state here
@@ -53,7 +55,10 @@ function Login () {
                       <Button variant='primary' type='submit' style={{'float': 'right'}}>
                           Submit
                       </Button>
-                      
+
+                  <Button variant='info'  >
+                          Register
+                      </Button>
                   </div>
               </Form.Group>
           </Form>

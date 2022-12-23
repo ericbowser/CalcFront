@@ -6,42 +6,58 @@ async function get(url, params = {}) {
     return response.json();
 }
 
-function post(url, data) {
-    // const raw = JSON.stringify(data);
-    console.log(data);
-    const raw = JSON.stringify({
+function post(url, data = {}) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
         "username": "eric@erb-tech.com",
         "password": "Password1"
     });
-    const options = {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*/*',
-        'Accept': '*'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-        redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'no-referrer',
-        body: {raw}
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
     };
-    const response = fetch(url, options)
-        .then(response => {
-            console.log(response);
-            return response.json();
-        })
-        .then(response => {
-            console.log(response);
-            return response;
-        })
-     .catch(err => {
-         console.log(err);
-     });
-    
-    return response;
+
+    fetch("http://localhost:34349/login", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    // console.log(data);
+    //
+    // const headers = new Headers();
+    // headers.append('Content-Type', 'application/json');
+    // headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Accept', 'application/json');
+    //
+    // const options = {
+    //     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    //     mode: 'cors', // no-cors, *cors, same-origin
+    //     cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
+    //     credentials: 'include', // include, *same-origin, omit
+    //     headers: headers,
+    //     body: JSON.stringify({
+    //         "data": {
+    //             "username": "jhasjkasjk",
+    //             "password": "password"
+    //         }
+    //     })
+    // };
+    // return await fetch(url, options)
+    //     .then(response => {
+    //         console.log(response);
+    //         return response.json();
+    //     })
+    //     .then(response => {
+    //         console.log(response);
+    //         return response;
+    //     })
+    //  .catch(err => {
+    //      console.log(err);
+    //  });
 }
 
 export {get, post};
