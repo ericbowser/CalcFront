@@ -2,7 +2,7 @@
 import { Form, Container, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import {post} from '../Api/loginApi';
-// import {isEmpty} from 'lodash'
+import {includes} from 'lodash'
 
 const StyledContainer = styled(Container)`
     background-color: red;
@@ -27,10 +27,13 @@ function Login () {
       };
       console.log(data);
       const x = await post('http://localhost:34349/login', data);
-      console.log(x);
+      if (includes(x, "duplicate")) {
+          console.log("It's a duplicate user, ask them to login");
+          Alert("please login. You are already registered");
+      }
       // console.log(response);
     } catch (e) {
-      console.log(e.target.value);
+      console.log(e);
       // handle your error state here
     }
   }
