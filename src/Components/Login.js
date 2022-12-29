@@ -1,8 +1,9 @@
 ﻿import React, {useState, useEffect} from 'react';
-import { Form, Container, Button } from 'react-bootstrap';
+import {Form, Container, Button, Alert} from 'react-bootstrap';
 import styled from 'styled-components';
 import {post} from '../Api/loginApi';
 import {includes} from 'lodash'
+import Calc from './Calculator';
 
 const StyledContainer = styled(Container)`
     background-color: red;
@@ -11,27 +12,30 @@ const StyledContainer = styled(Container)`
 `;
 
 function Login () {
-  const [userName, setUserName] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   
   useEffect(() => {
-  }, [password, userName]);
+  }, [password, username]);
   
-  async function handleSubmit() {
+  function handleSubmit() {
     try {
-      console.log('username', userName);
+      console.log('username', username);
       console.log('password', password);
       const data = {
-          username: userName,
+          username: username,
           password: password
       };
       console.log(data);
-      const x = await post('http://localhost:34349/login', data);
-      if (includes(x, "duplicate")) {
-          console.log("It's a duplicate user, ask them to login");
-          Alert("please login. You are already registered");
-      }
-      // console.log(response);
+      const res = post('http://localhost:34349/login', data)
+          .then(response => {
+              console.log(response);
+              return response;
+          })
+          .catch(err => {
+              console.log("error", err);
+          })
+      console.log("after post", res);
     } catch (e) {
       console.log(e);
       // handle your error state here
@@ -40,6 +44,7 @@ function Login () {
   
   return (
       <StyledContainer>
+          <Calc/>
           <Form onSubmit={handleSubmit} >
               <Form.Group className='mb-3' controlId='formBasicEmail'>
                   <Form.Label style={{'color': 'white'}}>Email address</Form.Label>
