@@ -1,6 +1,5 @@
 
 async function get(url, params = {}) {
-    const options = {};
     const response = await fetch(url, params);
     console.log(response);
     return response.json();
@@ -20,11 +19,10 @@ async function post(url, data = {}) {
     };
 
     try {
-        const response = await fetch("http://localhost:34349/login", requestOptions)
-        console.log(response);
-        return response;
+        const response = await fetch(url, requestOptions);
+        return response; 
     } catch(err) {
-        console.log(err);
+       console.log(err);
     }
 }
 

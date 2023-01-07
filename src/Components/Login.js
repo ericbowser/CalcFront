@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {post} from '../Api/loginApi';
 import {includes} from 'lodash'
 import Calc from './Calculator';
+import {localLogin} from '../Api/routes';
 
 const StyledContainer = styled(Container)`
     background-color: red;
@@ -18,26 +19,25 @@ function Login () {
   useEffect(() => {
   }, [password, username]);
   
-  function handleSubmit() {
+  async function handleSubmit() {
     try {
-      console.log('username', username);
-      console.log('password', password);
       const data = {
           username: username,
           password: password
       };
-      console.log(data);
-      const res = post('http://localhost:34349/login', data)
-          .then(response => {
-              console.log(response);
-              return response;
-          })
-          .catch(err => {
-              console.log("error", err);
-          })
-      console.log("after post", res);
-    } catch (e) {
-      console.log(e);
+      const x = await post(localLogin, data);
+      console.log("after request in Handle submit click action", x);
+      if (x.status === 409) {
+          console.log("It's a duplicate user, ask them to login");
+          alert("please login. You are already registered");
+      } else if (x.status === 400) {
+          alert("Bad request. Must have a username and password that hasn't been registered")
+      } else if (x.status === 500) {
+          console.log("server error status returned")
+      }
+    } catch (err) {
+      console.dir(err);
+      alert(err);
       // handle your error state here
     }
   }
